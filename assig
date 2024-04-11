@@ -1,0 +1,124 @@
+def dilation(matrix, structuringElement):
+    num_rows = len(matrix)
+    num_cols = len(matrix[0])
+    num_rowsStructuringElement = len(structuringElement)
+    num_colsStructuringElement = len(structuringElement[0])
+
+    # Get Structuring element center
+    Middlepart =  num_rowsStructuringElement // 2
+    MiddlePart2 = num_colsStructuringElement // 2
+
+    # Create an empty output image
+    output_image = np.zeros_like(matrix)
+
+    for i in range(num_rows):
+        for j in range(num_cols):
+            np_available = False
+            max_value=0
+            for x in range(max(0, Middlepart - i), min(num_rowsStructuringElement, num_rows - i + Middlepart)):
+                for y in range(max(0, MiddlePart2 - j), min(num_colsStructuringElement, num_cols - j + MiddlePart2)):
+            #for x in range(num_rowsStructuringElement-Middlepart):
+               # for y in range(num_colsStructuringElement-MiddlePart2):
+                    pixelOfStrucutringelementI = x 
+                    pixelOfStrucutringelementJ= y 
+                    pixelOfImageI = i -Middlepart + x
+                    pixelOfImageJ = j -MiddlePart2 + y
+                    #if i-x >= 0 and j-y >= 0 and i+x < num_rows and j+y < num_cols:
+                    if 0 <= pixelOfImageI  and pixelOfImageI < num_rows and 0 <= pixelOfImageJ and pixelOfImageI < num_cols:
+
+                       #pixelOfIStructuringElementRight = structuringElement[Middlepart+x][MiddlePart2]
+                       #pixelOfIStructuringElementLeft = structuringElement[Middlepart-x][MiddlePart2]
+                       #pixelOfIStructuringElementUp = structuringElement[Middlepart][MiddlePart2-y]
+                       #pixelOfIStructuringElementDown = structuringElement[Middlepart][MiddlePart2+y]
+                       #pixelOfIStructuringElementmiddle = structuringElement[Middlepart][MiddlePart2]
+
+                    #pixelOfImageRight = matrix[i+x][j]
+                    #pixelOfImageLeft = matrix[i-x][j]
+                    #pixelOfImageUp = matrix[i][j-y]
+                    #pixelOfImageDown = matrix[i][j+y]
+                    #pixelOfImagemiddle=matrix[i][j]
+                       if structuringElement[x][y] == 1:
+                                max_value = max(max_value, matrix[pixelOfImageI][pixelOfImageJ])
+
+                    '''if pixelOfIStructuringElementmiddle==1:
+                          max_value = max(max_value, pixelOfImagemiddle)
+
+                          if pixelOfIStructuringElementRight ==1:
+                            max_value = max(max_value, pixelOfImageRight)
+
+                            if pixelOfIStructuringElementLeft ==1:
+                              max_value = max(max_value, pixelOfImageLeft)
+
+                              if pixelOfIStructuringElementUp ==1:
+                                  max_value = max(max_value, pixelOfImageUp)
+
+                                  if pixelOfIStructuringElementDown ==1:
+
+                                    max_value = max(max_value, pixelOfImageDown)'''
+
+            output_image[i][j] = max_value
+
+
+    return output_image
+def erosion(matrix, structuringElement):
+    num_rows = len(matrix)
+    num_cols = len(matrix[0])
+    num_rowsStructuringElement = len(structuringElement)
+    num_colsStructuringElement = len(structuringElement[0])
+
+    # Get Structuring element center
+    Middlepart =  num_rowsStructuringElement // 2
+    MiddlePart2 = num_colsStructuringElement // 2
+
+    # Create an empty output image
+    output_image = np.zeros_like(matrix)
+
+    for i in range(num_rows):
+        for j in range(num_cols):
+            np_available = False
+            max_value=matrix[i][j]
+            for x in range(max(0, Middlepart - i), min(num_rowsStructuringElement, num_rows - i + Middlepart)):
+                for y in range(max(0, MiddlePart2 - j), min(num_colsStructuringElement, num_cols - j + MiddlePart2)):
+            #for x in range(num_rowsStructuringElement-Middlepart):
+               # for y in range(num_colsStructuringElement-MiddlePart2):
+                    pixelOfStrucutringelementI = x 
+                    pixelOfStrucutringelementJ= y 
+                    pixelOfImageI = i -Middlepart + x
+                    pixelOfImageJ = j -MiddlePart2 + y
+                    #if i-x >= 0 and j-y >= 0 and i+x < num_rows and j+y < num_cols:
+                    if 0 <= pixelOfImageI < num_rows and 0 <= pixelOfImageJ < num_cols:
+
+                       #pixelOfIStructuringElementRight = structuringElement[Middlepart+x][MiddlePart2]
+                       #pixelOfIStructuringElementLeft = structuringElement[Middlepart-x][MiddlePart2]
+                       #pixelOfIStructuringElementUp = structuringElement[Middlepart][MiddlePart2-y]
+                       #pixelOfIStructuringElementDown = structuringElement[Middlepart][MiddlePart2+y]
+                       #pixelOfIStructuringElementmiddle = structuringElement[Middlepart][MiddlePart2]
+
+                    #pixelOfImageRight = matrix[i+x][j]
+                    #pixelOfImageLeft = matrix[i-x][j]
+                    #pixelOfImageUp = matrix[i][j-y]
+                    #pixelOfImageDown = matrix[i][j+y]
+                    #pixelOfImagemiddle=matrix[i][j]
+                       if structuringElement[x][y] == 1:
+                                max_value = min(max_value, matrix[pixelOfImageI][pixelOfImageJ])
+
+                    '''if pixelOfIStructuringElementmiddle==1:
+                          max_value = max(max_value, pixelOfImagemiddle)
+
+                          if pixelOfIStructuringElementRight ==1:
+                            max_value = max(max_value, pixelOfImageRight)
+  
+                            if pixelOfIStructuringElementLeft ==1:
+                              max_value = max(max_value, pixelOfImageLeft)
+
+                              if pixelOfIStructuringElementUp ==1:
+                                  max_value = max(max_value, pixelOfImageUp)
+
+                                  if pixelOfIStructuringElementDown ==1:
+
+                                    max_value = max(max_value, pixelOfImageDown)'''
+
+            output_image[i][j] = max_value
+
+
+    return output_image
